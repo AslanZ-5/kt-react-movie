@@ -3,7 +3,12 @@
     "browser": true,
     "es2021": true
   },
-  "extends": ["plugin:react/recommended", "airbnb"],
+  "extends": [
+    "plugin:react/recommended",
+    "airbnb",
+    "eslint:recommended",
+    "prettier"
+  ],
   "overrides": [],
   "parserOptions": {
     "ecmaVersion": "latest",
@@ -11,7 +16,25 @@
   },
   "plugins": ["react", "prettier"],
   "rules": {
-    "react/jsx-filename-extension": [0],
-    "import/extensions": "off"
+    "prettier/prettier": "error",
+    "no-plusplus": "off",
+    "react/jsx-filename-extension": "off",
+    "react/button-has-type": "off",
+    "react/state-in-constructor": "off",
+    "class-methods-use-this": "off",
+    "react/forbid-prop-types": "off",
+    "jsx-a11y/no-noninteractive-element-interactions": "off",
+    "jsx-a11y/label-has-associated-control": "off",
+    "jsx-a11y/control-has-associated-label": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "import/extensions": "off",
+    "linebreak-style": "off",
+    "quotes": "off",
+    "react/function-component-definition": "off",
+    "arrow-body-style": "off",
+    "object-curly-newline": "off",
+    "react/prefer-stateless-function": "off",
+    "implicit-arrow-linebreak": "off",
+    "camelcase": "off"
   }
 }
