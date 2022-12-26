@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Spin } from "antd";
 import GetMovies from "../service/getMovies";
 import "./Movies.css";
 import Movie from "../Movie";
@@ -25,8 +26,13 @@ class Movies extends Component {
 
   render() {
     const { movies, loading } = this.state;
-    let moviList = <div>Loading......</div>;
-    console.log(movies);
+
+    let moviList = (
+      <div className="spin">
+        <Spin size="large" tip="Loading..." />
+      </div>
+    );
+
     if (!loading) {
       moviList = movies.map((movie) => {
         return <Movie movie={movie} key={movie.original_title} />;

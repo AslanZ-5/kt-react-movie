@@ -1,27 +1,44 @@
 .movie {
   display: flex;
+  justify-content: space-evenly;
   margin: 35px;
   width: 454px;
   height: 281px;
   box-shadow: 0px 4px 12px 0px #00000026;
 }
-.right-side {
-  width: 183px;
+.left-side {
+  width: 37.5%;
   height: 100%;
 }
-.left-side {
+.poster {
+  width: 100%;
+  height: 100%;
+}
+.right-side {
   padding-left: 10px;
+  width: 57.5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 .movie__header {
-  display: flex;
-  margin-top: 12px;
+  position: relative;
   justify-content: space-between;
 }
 .movie__rating {
-  margin-right: 10px;
-  margin-top: 4px;
+  width: 33px;
+  height: 33px;
+  margin: 5px;
+  padding-top: 5px;
+  border-radius: 50%;
+  border: 2px solid #e9d100;
+  text-align: center;
+  position: absolute;
+  top: 5px;
+  right: 5px;
 }
 .movie__heading {
+  width: 200px;
   font-size: 20px;
   line-height: 28px;
 }
@@ -43,7 +60,6 @@
 }
 .movie__janre {
   margin-right: 13px;
-  margin-bottom: 5px;
   padding: 2px 5px 2px 5px;
   border: 1px solid #d9d9d9;
   border-radius: 2px;
