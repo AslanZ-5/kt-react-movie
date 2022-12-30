@@ -23,7 +23,7 @@ class App extends Component {
           <Space>
             <Alert
               message="Error"
-              description="Sorry!!! Something wen wrong."
+              description="Sorry!!! Something went wrong."
               type="error"
               showIcon
             />

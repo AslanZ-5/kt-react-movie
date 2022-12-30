@@ -3,3 +3,10 @@
   text-align: center;
   margin-top: 140px;
 }
+.App {
+  width: 100%;
+}
+.App__input {
+  margin: 15px;
+  width: 95%;
+}

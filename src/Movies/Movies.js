@@ -1,11 +1,17 @@
 import React, { Component } from "react";
-import { Spin, Alert, Space } from "antd";
+import { Spin, Alert, Space, Input } from "antd";
+import { debounce } from "lodash";
 import GetMovies from "../service/getMovies";
 import "./Movies.css";
 import Movie from "../Movie";
 import "antd/dist/reset.css";
 
 class Movies extends Component {
+  constructor(props) {
+    super(props);
+    this.deblog = debounce((e) => this.getMovies(e.target.value), 1000);
+  }
+
   state = {
     movies: null,
     loading: true,
@@ -14,10 +20,20 @@ class Movies extends Component {
   };
 
   componentDidMount() {
+    this.getMovies();
+  }
+
+  componentDidCatch() {
+    this.setState({
+      hasError: true,
+    });
+  }
+
+  getMovies = (query = "return") => {
     const movies = new GetMovies();
 
     movies
-      .serchMovies()
+      .serchMovies(query)
       .then((data) =>
         this.setState(
           {
@@ -37,13 +53,14 @@ class Movies extends Component {
           });
         }
       });
-  }
+  };
 
-  componentDidCatch() {
-    this.setState({
-      hasError: true,
-    });
-  }
+  onInputChange = (e) => {
+    // this.setState({
+    //   query: e.target.value,
+    // });
+    this.deblog(e);
+  };
 
   render() {
     const { movies, loading, hasError, intError } = this.state;
@@ -79,7 +96,16 @@ class Movies extends Component {
       });
     }
 
-    return <div className="movies">{moviList}</div>;
+    return (
+      <div className="container">
+        <Input
+          // value={query}
+          onChange={this.onInputChange}
+          className="App__input"
+        />
+        <div className="movies">{moviList}</div>
+      </div>
+    );
   }
 }
 

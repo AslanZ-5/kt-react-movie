@@ -35,6 +35,7 @@
     "object-curly-newline": "off",
     "react/prefer-stateless-function": "off",
     "implicit-arrow-linebreak": "off",
-    "camelcase": "off"
+    "camelcase": "off",
+    "react/prop-types": "off"
   }
 }

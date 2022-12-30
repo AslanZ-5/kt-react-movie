@@ -8,7 +8,13 @@ function ShortText(overview) {
   return overview.split(" ").slice(0, 19).join(" ");
 }
 function FormatDate(date) {
-  return format(new Date(date), "MMMM d, yyyy");
+  let dt;
+  try {
+    dt = format(new Date(date), "MMMM d, yyyy");
+  } catch {
+    dt = date;
+  }
+  return dt;
 }
 
 const Movie = ({ movie }) => {
