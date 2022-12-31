@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { format } from "date-fns";
-// import img from "./bkimg.png";
+import img from "./bkimg.png";
 import "./Movie.css";
 
 function ShortText(overview) {
@@ -26,14 +26,13 @@ const Movie = ({ movie }) => {
     genre_ids,
     poster_path,
   } = movie;
+  const img_path = poster_path
+    ? `https://image.tmdb.org/t/p/w500/${poster_path}`
+    : img;
   return (
     <div className="movie">
       <div className="left-side">
-        <img
-          className="poster"
-          src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
-          alt="poster img"
-        />
+        <img className="poster" src={img_path} alt="poster img" />
       </div>
       <div className="right-side">
         <div className="movie__header">

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Spin, Alert, Space, Input } from "antd";
+import { Spin, Alert, Space, Input, Pagination } from "antd";
 import { debounce } from "lodash";
 import GetMovies from "../service/getMovies";
 import "./Movies.css";
@@ -9,14 +9,16 @@ import "antd/dist/reset.css";
 class Movies extends Component {
   constructor(props) {
     super(props);
-    this.deblog = debounce((e) => this.getMovies(e.target.value), 1000);
+    this.deblog = debounce((query) => this.getMovies(query), 1000);
   }
 
   state = {
+    query: "return",
     movies: null,
     loading: true,
     hasError: false,
     intError: false,
+    total_pages: 1,
   };
 
   componentDidMount() {
@@ -29,19 +31,21 @@ class Movies extends Component {
     });
   }
 
-  getMovies = (query = "return") => {
+  getMovies = (query = "return", page = 1) => {
     const movies = new GetMovies();
 
     movies
-      .serchMovies(query)
-      .then((data) =>
+      .serchMovies(query, page)
+      .then((data) => {
+        console.log(data);
         this.setState(
           {
             movies: data.results,
+            total_pages: data.total_pages,
           },
           () => this.setState({ loading: false }),
-        ),
-      )
+        );
+      })
       .catch((er) => {
         if (er.message.split(" ")[0] === "NetworkError") {
           this.setState({
@@ -56,14 +60,18 @@ class Movies extends Component {
   };
 
   onInputChange = (e) => {
-    // this.setState({
-    //   query: e.target.value,
-    // });
-    this.deblog(e);
+    const { query } = this.state;
+    this.setState(
+      {
+        query: e.target.value,
+      },
+      () => this.deblog(query),
+    );
   };
 
   render() {
-    const { movies, loading, hasError, intError } = this.state;
+    const { movies, loading, hasError, intError, query, total_pages } =
+      this.state;
     if (hasError || intError) {
       return (
         <div className="error">
@@ -89,6 +97,13 @@ class Movies extends Component {
     );
 
     if (!loading) {
+      if (!movies.length) {
+        return (
+          <div>
+            <h1>No results</h1>
+          </div>
+        );
+      }
       moviList = movies.map((movie) => {
         return (
           <Movie movie={movie} key={`${movie.original_title}-${movie.id}`} />
@@ -104,6 +119,14 @@ class Movies extends Component {
           className="App__input"
         />
         <div className="movies">{moviList}</div>
+        <div className="antd-pag">
+          <Pagination
+            onChange={(page) => this.getMovies(query, page)}
+            simple={false}
+            defaultCurrent={1}
+            total={total_pages}
+          />
+        </div>
       </div>
     );
   }
