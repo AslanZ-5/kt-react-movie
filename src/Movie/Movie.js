@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { format } from "date-fns";
-import img from "./bkimg.png";
+import img from "./bkimg.jpg";
 import "./Movie.css";
 
 function ShortText(overview) {

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Spin, Alert, Space, Input, Pagination } from "antd";
 import { debounce } from "lodash";
+import is_expired from "../helper/is_expired";
 import GetMovies from "../service/getMovies";
 import "./Movies.css";
 import Movie from "../Movie";
@@ -22,6 +23,17 @@ class Movies extends Component {
   };
 
   componentDidMount() {
+    const session = localStorage.getItem("guest_session");
+    let expired;
+    if (session) {
+      const ex_dt = JSON.parse(session).expires_at;
+      expired = is_expired(ex_dt);
+    }
+
+    if (!session || expired) {
+      this.addGuestSession();
+    }
+
     this.getMovies();
   }
 
@@ -37,7 +49,6 @@ class Movies extends Component {
     movies
       .serchMovies(query, page)
       .then((data) => {
-        console.log(data);
         this.setState(
           {
             movies: data.results,
@@ -68,6 +79,15 @@ class Movies extends Component {
       () => this.deblog(query),
     );
   };
+
+  addGuestSession() {
+    const movies = new GetMovies();
+    movies.getGuestSes().then((data) => {
+      if (data.guest_session_id) {
+        localStorage.setItem("guest_session", JSON.stringify(data));
+      }
+    });
+  }
 
   render() {
     const { movies, loading, hasError, intError, query, total_pages } =

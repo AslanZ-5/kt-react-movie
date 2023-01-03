@@ -18,6 +18,14 @@ class GetMovies {
     const image = await res.json();
     return image;
   }
+
+  async getGuestSes() {
+    const res = await fetch(
+      "https://api.themoviedb.org/3/authentication/guest_session/new?api_key=1d5095d2457fa9660e61107e3db5b1e7",
+    );
+    const session = await res.json();
+    return session;
+  }
 }
 
 export default GetMovies;
