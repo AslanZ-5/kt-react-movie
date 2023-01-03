@@ -2,12 +2,3 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
-.spin {
-  width: 100%;
-  margin-top: 150px;
-  text-align: right;
-}
-.antd-pag {
-  padding: 30px;
-  text-align: center;
-}

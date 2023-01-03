@@ -1,18 +1,26 @@
 import React from "react";
 import "./Header.css";
 
-const Header = () => {
+const Header = ({ rated, onTabChange }) => {
   return (
     <header className="header">
       <nav>
         <ul>
           <li className="header-item ">
-            <a className="header-link active" href="ds/">
+            <a
+              onClick={(e) => onTabChange(e)}
+              className={`header-link ${!rated ? "active" : ""}`}
+              href="ds/"
+            >
               Search
             </a>
           </li>
           <li className="header-item">
-            <a className="header-link" href="ds/">
+            <a
+              onClick={(e) => onTabChange(e)}
+              className={`header-link ${rated ? "active" : ""}`}
+              href="ds/"
+            >
               Rated
             </a>
           </li>

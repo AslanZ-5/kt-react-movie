@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import { Alert, Space } from "antd";
 import Header from "../Header";
-import Movies from "../Movies";
 import "./App.css";
+import Search from "../Search";
+import Rated from "../Rated";
 
 class App extends Component {
   state = {
     hasError: false,
+    rated: false,
   };
 
   componentDidCatch() {
@@ -15,8 +17,21 @@ class App extends Component {
     });
   }
 
+  onTabChange = (e) => {
+    e.preventDefault();
+    if (e.target.innerText === "Rated") {
+      this.setState({
+        rated: true,
+      });
+    } else {
+      this.setState({
+        rated: false,
+      });
+    }
+  };
+
   render() {
-    const { hasError } = this.state;
+    const { hasError, rated } = this.state;
     if (hasError) {
       return (
         <div className="error">
@@ -33,8 +48,8 @@ class App extends Component {
     }
     return (
       <div className="App">
-        <Header />
-        <Movies />
+        <Header onTabChange={this.onTabChange} rated={rated} />
+        {!rated ? <Search /> : <Rated />}
       </div>
     );
   }

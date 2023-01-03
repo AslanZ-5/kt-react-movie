@@ -37,7 +37,7 @@ const Movie = ({ movie }) => {
       <div className="right-side">
         <div className="movie__header">
           <h1 className="movie__heading">{original_title}</h1>
-          <div className="movie__rating">{vote_average}</div>
+          <div className="movie__rating">{Number(vote_average).toFixed(1)}</div>
         </div>
         <p className="movie__added">{FormatDate(release_date)}</p>
         <div className="movie__janres">
