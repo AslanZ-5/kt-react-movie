@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import { Alert, Space } from "antd";
 import Header from "../Header";
 import "./App.css";
-import Search from "../Search";
-import Rated from "../Rated";
+import Tabs from "../Tabs";
 
 class App extends Component {
   state = {
@@ -49,7 +48,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header onTabChange={this.onTabChange} rated={rated} />
-        {!rated ? <Search /> : <Rated />}
+        <Tabs rated={rated} />
       </div>
     );
   }

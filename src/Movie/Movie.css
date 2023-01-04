@@ -15,7 +15,7 @@
   height: 100%;
 }
 .right-side {
-  padding-left: 10px;
+  padding-left: 5px;
   width: 57.5%;
   display: flex;
   flex-direction: column;
@@ -31,12 +31,25 @@
   margin: 5px;
   padding-top: 5px;
   border-radius: 50%;
-  border: 2px solid #e9d100;
+  border: 2px solid;
   text-align: center;
   position: absolute;
   top: 5px;
   right: 5px;
 }
+.very-low {
+  border-color: #e90000;
+}
+.low {
+  border-color: #e97e00;
+}
+.medium {
+  border-color: #e9d100;
+}
+.high {
+  border-color: #66e900;
+}
+
 .movie__heading {
   width: 200px;
   font-size: 20px;

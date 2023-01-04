@@ -75,6 +75,7 @@ class Search extends Component {
   render() {
     const { movies, loading, hasError, intError, query, total_results } =
       this.state;
+    const { ratedToStorage, rating } = this.props;
 
     if (hasError || intError) {
       return (
@@ -109,7 +110,12 @@ class Search extends Component {
           onChange={this.onInputChange}
           className="App__input"
         />
-        <Movies loading={loading} movies={movies} />
+        <Movies
+          rating={rating}
+          ratedToStorage={ratedToStorage}
+          loading={loading}
+          movies={movies}
+        />
         <PaginationComp
           total_results={total_results}
           query={query}

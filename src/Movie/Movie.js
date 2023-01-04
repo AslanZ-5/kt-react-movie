@@ -1,6 +1,7 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { Component } from "react";
+import { Rate } from "antd";
 import { format } from "date-fns";
+import GetMovies from "../service/getMovies";
 import img from "./bkimg.jpg";
 import "./Movie.css";
 
@@ -17,42 +18,63 @@ function FormatDate(date) {
   return dt;
 }
 
-const Movie = ({ movie }) => {
-  const {
-    original_title,
-    vote_average,
-    release_date,
-    overview,
-    genre_ids,
-    poster_path,
-  } = movie;
-  const img_path = poster_path
-    ? `https://image.tmdb.org/t/p/w500/${poster_path}`
-    : img;
-  return (
-    <div className="movie">
-      <div className="left-side">
-        <img className="poster" src={img_path} alt="poster img" />
-      </div>
-      <div className="right-side">
-        <div className="movie__header">
-          <h1 className="movie__heading">{original_title}</h1>
-          <div className="movie__rating">{Number(vote_average).toFixed(1)}</div>
+class Movie extends Component {
+  render() {
+    // const rated = JSON.parse(localStorage.getItem("rated"));
+    const rate = new GetMovies();
+    const { movie, ratedToStorage, rating: rated } = this.props;
+    const {
+      id,
+      original_title,
+      vote_average,
+      release_date,
+      overview,
+      genre_ids,
+      poster_path,
+    } = movie;
+    let cl;
+    const average = Number(vote_average);
+    if (average <= 3) {
+      cl = "very-low";
+    } else if (average <= 5) {
+      cl = "low";
+    } else if (average <= 7) {
+      cl = "medium";
+    } else {
+      cl = "high";
+    }
+    // console.log(BorderColor);
+    const img_path = poster_path
+      ? `https://image.tmdb.org/t/p/w500/${poster_path}`
+      : img;
+    return (
+      <div className="movie">
+        <div className="left-side">
+          <img className="poster" src={img_path} alt="poster img" />
         </div>
-        <p className="movie__added">{FormatDate(release_date)}</p>
-        <div className="movie__janres">
-          <div className="movie__janre">{genre_ids.slice(0, 4)}</div>
+        <div className="right-side">
+          <div className="movie__header">
+            <h1 className="movie__heading">{original_title}</h1>
+            <div className={`movie__rating ${cl}`}>{average.toFixed(1)}</div>
+          </div>
+          <p className="movie__added">{FormatDate(release_date)}</p>
+          <div className="movie__janres">
+            <div className="movie__janre">{genre_ids.slice(0, 4)}</div>
+          </div>
+          <p className="movie__text">{ShortText(overview)} ...</p>
+          <Rate
+            count="10"
+            style={{ fontSize: "18px" }}
+            onChange={(n) => {
+              ratedToStorage(id, n);
+              rate.sendRateRequest(id, n);
+            }}
+            value={rated[id] ? rated[id] : 0}
+          />
         </div>
-        <p className="movie__text">{ShortText(overview)} ...</p>
-        <div className="movie__stars" />
       </div>
-    </div>
-  );
-};
-Movie.defaultProps = {
-  movie: {},
-};
-Movie.propTypes = {
-  movie: PropTypes.object,
-};
+    );
+  }
+}
+
 export default Movie;

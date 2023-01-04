@@ -19,6 +19,7 @@ class Movies extends Component {
       expired = is_expired(ex_dt);
     }
     if (!session || expired) {
+      localStorage.setItem("rated", JSON.stringify({}));
       this.addGuestSession();
     }
   }
@@ -39,7 +40,7 @@ class Movies extends Component {
   }
 
   render() {
-    const { movies, loading } = this.props;
+    const { movies, loading, ratedToStorage, rating } = this.props;
     const { hasError } = this.state;
     if (hasError) {
       return (
@@ -56,7 +57,9 @@ class Movies extends Component {
       );
     }
     let moviList;
-
+    if (!movies) {
+      return <h1>No Rated Movies</h1>;
+    }
     if (!loading) {
       if (!movies.length) {
         return (
@@ -67,7 +70,12 @@ class Movies extends Component {
       }
       moviList = movies.map((movie) => {
         return (
-          <Movie movie={movie} key={`${movie.original_title}-${movie.id}`} />
+          <Movie
+            rating={rating}
+            ratedToStorage={ratedToStorage}
+            movie={movie}
+            key={`${movie.original_title}-${movie.id}`}
+          />
         );
       });
     }
