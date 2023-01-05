@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Rate } from "antd";
 import { format } from "date-fns";
 import GetMovies from "../service/getMovies";
+import { Consumer } from "../movieContext";
 import img from "./bkimg.jpg";
 import "./Movie.css";
 
@@ -43,7 +44,6 @@ class Movie extends Component {
     } else {
       cl = "high";
     }
-    // console.log(BorderColor);
     const img_path = poster_path
       ? `https://image.tmdb.org/t/p/w500/${poster_path}`
       : img;
@@ -58,8 +58,19 @@ class Movie extends Component {
             <div className={`movie__rating ${cl}`}>{average.toFixed(1)}</div>
           </div>
           <p className="movie__added">{FormatDate(release_date)}</p>
-          <div className="movie__janres">
-            <div className="movie__janre">{genre_ids.slice(0, 4)}</div>
+          <div className="movie__genres">
+            <Consumer>
+              {(genres) => {
+                if (genres) {
+                  return genre_ids.map((genre) => (
+                    <div key={genre} className="movie__genre">
+                      {genres[genre]}
+                    </div>
+                  ));
+                }
+                return <div>loading...</div>;
+              }}
+            </Consumer>
           </div>
           <p className="movie__text">{ShortText(overview)} ...</p>
           <Rate
@@ -69,7 +80,7 @@ class Movie extends Component {
               ratedToStorage(id, n);
               rate.sendRateRequest(id, n);
             }}
-            value={rated[id] ? rated[id] : 0}
+            value={rated ? rated[id] : 0}
           />
         </div>
       </div>

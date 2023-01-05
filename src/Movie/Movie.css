@@ -68,12 +68,17 @@
   height: 48px;
   background-color: antiquewhite;
 }
-.movie__janres {
+.movie__genres {
   display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
 }
-.movie__janre {
-  margin-right: 13px;
-  padding: 2px 5px 2px 5px;
+.movie__genre {
+  margin-right: 4px;
+  margin-bottom: 5px;
+  padding: 2px;
   border: 1px solid #d9d9d9;
-  border-radius: 2px;
+  border-radius: 7px;
+  font-size: 14px;
+  background-color: #fbfef9;
 }

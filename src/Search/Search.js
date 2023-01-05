@@ -75,7 +75,7 @@ class Search extends Component {
   render() {
     const { movies, loading, hasError, intError, query, total_results } =
       this.state;
-    const { ratedToStorage, rating } = this.props;
+    const { ratedToStorage, rating, clearRated } = this.props;
 
     if (hasError || intError) {
       return (
@@ -104,13 +104,13 @@ class Search extends Component {
     }
     return (
       <div>
-        Serch
         <Input
           value={query}
           onChange={this.onInputChange}
           className="App__input"
         />
         <Movies
+          clearRated={clearRated}
           rating={rating}
           ratedToStorage={ratedToStorage}
           loading={loading}

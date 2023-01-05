@@ -4,6 +4,11 @@ import PaginationComp from "../PaginationComp";
 import Movies from "../Movies";
 
 class Rated extends Component {
+  componentDidMount() {
+    const { rateActive } = this.props;
+    rateActive();
+  }
+
   render() {
     const {
       movies,
@@ -43,7 +48,6 @@ class Rated extends Component {
     }
     return (
       <div>
-        <h1>Rated</h1>
         <Movies
           rating={rating}
           ratedToStorage={ratedToStorage}

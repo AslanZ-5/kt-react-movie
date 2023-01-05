@@ -59,7 +59,7 @@ class GetMovies {
     const res = await fetch(
       "https://api.themoviedb.org/3/genre/movie/list?api_key=1d5095d2457fa9660e61107e3db5b1e7&language=en-US",
     );
-    const genres = await res.join();
+    const genres = await res.json();
     return genres;
   }
 }

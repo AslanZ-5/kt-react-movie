@@ -2,3 +2,10 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
+@media (max-width: 1080px) {
+  .movies {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}

@@ -12,6 +12,7 @@ class Movies extends Component {
   };
 
   componentDidMount() {
+    const { clearRated } = this.props;
     const session = localStorage.getItem("guest_session");
     let expired;
     if (session) {
@@ -19,6 +20,10 @@ class Movies extends Component {
       expired = is_expired(ex_dt);
     }
     if (!session || expired) {
+      if (clearRated) {
+        clearRated(true);
+      }
+
       localStorage.setItem("rated", JSON.stringify({}));
       this.addGuestSession();
     }
